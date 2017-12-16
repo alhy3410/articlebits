@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+
+<!-- Where NavBar -->
+{% block body %}
+<div class="main-panel">
+    
+    {% include 'includes/_topnavbar.html' %}
+
+       <div class="content">
+            <div class="container-fluid">
+                <div class="categorytitle">
+                    <hr>
+                        <p>{{category}}</p>
+                    <hr>
+                </div>
+                <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                {% for company in companies %}
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href={{"#"+category+"-"+company}}>{{company}}</a>
+                                    </h4>
+                                </div>
+                                <div id={{category+"-"+company}} class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                    <table class="table">
+                                    {% for article in env[company] %}
+                                        <tr>
+                                        <td>
+                                            <a href="/{{category}}/{{ article }}#articlestart" class="list-group-item">{{ env[company][article] }}</a>
+                                        </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </table>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                            <div class="row">
+                                <div class="col-md-12" align="center" id="articlestart">
+                                <h3 id="articleTitle">{{ articleresults['Title'] }}</h3>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-2">
+                                <a href="{{ articleresults['URL']}}">Original Link</a>
+                                </div>
+                                <div class="col-md-5" align="left">
+                                <p>Published Time: <br> {{ articleresults['StoryTimePublished'] }}</p>
+                                </div>
+                                <div class="col-md-5" align="left">
+                                <p>Company: {{ articleresults['Company'] }} - Author: {{ articleresults['Author'] }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                {{ articleresults['StorySummarized'] }}
+                                </div>
+                            </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h4>Similar Stories</h4>
+                                {% for grpart in grouped %}
+                                    <ul>
+                                        <li><a href="/{{grpart[2]}}/{{ grpart[0] }}#articlestart" class="list-group-item">{{ grpart[3] }}</a></li>
+                                    </ul>
+                                {% endfor %}
+                            </div>
+
+                            <hr>
+                    
+                            <div class="col-md-12" id='termset'>
+                                <h4>Terms From The Article</h4>
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        {% for key in terms.keys() %}
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href={{"#"+key}}>{{key}}</a>
+                                            </h4>
+                                        </div>
+                                        <div id={{key}} class="panel-collapse collapse ">
+                                            <div class="panel-body">
+                                            <table class="table">
+                                                <tr>
+                                                <td>
+                                                    {{ terms[key] }}
+                                                </td>
+                                                </tr>
+                                            </table>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+    
+{% endblock %}

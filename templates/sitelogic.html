@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="main-panel">
+  
+  {% include 'includes/_topnavbar.html' %}
+
+  <div class="content">
+    <h1>Site Logic</h1>
+    <p>This page is dedicated to some of the upcoming improvements as well as how the site's backend logic operates. The code won't be posted, but here we'll discuss how the data is processed. We start with gathering news articles, and that can be done in many different ways. </p>
+    <ul>
+      <li>We only gather information onces per day. It is going to be scheduled at 6 am and posted around 8 am. Unless there is an error with the load, then articles will be posted up around 10 am.</li>
+      <li>Once we gather the articles, we have to process them. To summarize the article we measure the importance of each sentence by giving a weight to the sum of the term frequency. (TF-IDF). We do additional processing to summarize the articles, such as trying to figure out important key words</li>
+      <li>With the key words, we then gather wiki data</li>
+      <li>From here SQL code is run to join the tables we built to get a production table</li>
+      <li>Backups are made in case of errors.</li>
+    </ul>
+    <hr>
+    <h2>Ideas for improvements / transparency items</h2>
+    <ol>
+      <li>We are going to gather information on article clicks. This is so that we can gather data on articles that people like, and sources that people like to try and improve searches and potentially later giving custom suggestions of news articles</li>
+      <li>Suggesting articles for sharing</li>
+    </ol>
+  </div>
+  <hr>
+</div>
+{% endblock %}
